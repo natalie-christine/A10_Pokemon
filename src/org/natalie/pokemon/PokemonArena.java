@@ -1,8 +1,15 @@
+package org.natalie.pokemon;
 
 public class PokemonArena {
 
+    private final Effectiveness effectiveness;
 
-    public static Pokemon FirstAttacker(Pokemon userPokemon, Pokemon pcPokemon) {
+    public PokemonArena() {
+        this.effectiveness =  new Effectiveness();
+    }
+
+
+    public Pokemon FirstAttacker(Pokemon userPokemon, Pokemon pcPokemon) {
         if (userPokemon.speed >= pcPokemon.speed) {
             return userPokemon;
         } else {
@@ -11,7 +18,7 @@ public class PokemonArena {
     }
 
 
-    public static void fight(Pokemon attacker, Pokemon defender, Attack userAttack, Attack pcAttack, int counter) {
+    public void fight(Pokemon attacker, Pokemon defender, Attack userAttack, Attack pcAttack, int counter) {
         System.out.println(attacker.getName() + " greift " + defender.getName() + " mit " + userAttack.getName() + " an!");
         System.out.println();
 
@@ -28,7 +35,7 @@ public class PokemonArena {
             return;
         }
 
-        // Defender Pokemon greift an
+        // Defender org.natalie.pokemon.Pokemon greift an
         System.out.println(defender.getName() + " greift mit " + pcAttack.getName() + " an!");
         System.out.println();
         double pcDamage = calculateDamage(pcAttack,defender,attacker,counter);
@@ -43,12 +50,14 @@ public class PokemonArena {
         }
     }
 
-    private static void printHP(Pokemon attacker, Pokemon defender) {
+    private void printHP(Pokemon attacker, Pokemon defender) {
         System.out.println(attacker.getName() + " HP: " + attacker.getHP());
         System.out.println(defender.getName() + " HP: " + defender.getHP());
     }
 
-    public static double calculateDamage(Attack attack, Pokemon attacker, Pokemon defender, int counter) {
+    private double calculateDamage(Attack attack, Pokemon attacker, Pokemon defender, int counter) {
+
+      //  Effectiveness effectiveness =  effectiveness.getEffectiveness(attack.getType(), defender.getType1());
 
         double attackPower = attack.getPower();
         System.out.println(attackPower);
@@ -58,9 +67,9 @@ public class PokemonArena {
         System.out.println(defenderDefense);
         double stab = attacker.hasType(attack.getType()) ? 1.5 : 1.0; // STAB (Same Type Attack Bonus)
         System.out.println(stab);
-        double effectiveness1 = Effectiveness.getEffectiveness(attack.getType(), defender.getType1());
+        double effectiveness1 = effectiveness.getEffectiveness(attack.getType(), defender.getType1());
         System.out.println(effectiveness1);
-        double effectiveness2 = Effectiveness.getEffectiveness(attack.getType(), defender.getType2());
+        double effectiveness2 = effectiveness.getEffectiveness(attack.getType(), defender.getType2());
         System.out.println(effectiveness2);
         double rnd = Math.random() * (1.0 - 0.85) + 0.85; // Random value between 0.85 and 1.0
         System.out.println(rnd);

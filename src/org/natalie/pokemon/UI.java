@@ -1,3 +1,5 @@
+package org.natalie.pokemon;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -6,8 +8,11 @@ public class UI {
 
     private final PokemonCenter pokemonCenter;
 
+    private final PokemonArena pokemonArena;
+
     public UI(PokemonCenter pokemonCenter) {
         this.pokemonCenter = pokemonCenter;
+        this.pokemonArena = new PokemonArena();
     }
 
 
@@ -16,7 +21,7 @@ public class UI {
 
         // Schritt 1: Nutzer wählt sein Pokemon aus einer Liste
         System.out.println("Wähle dein Pokemon:");
-        PokemonCenter.listPokemon();
+        pokemonCenter.listPokemon();
         System.out.print("Index des Pokemon: ");
         int userPokemonIndex = scanner.nextInt();
         scanner.nextLine();
@@ -71,7 +76,7 @@ public class UI {
         System.out.println("Der PC hat das Pokemon " + pcPokemon.getName() + " und die Attacke " + pcAttack1.getName() + " und die Attacke " + pcAttack2.getName() + " ausgewählt.");
 
 
-        Pokemon attacker = PokemonArena.FirstAttacker(userPokemon, pcPokemon);
+        Pokemon attacker = pokemonArena.FirstAttacker(userPokemon, pcPokemon);
         Pokemon defender = (attacker == pcPokemon) ? userPokemon : pcPokemon;
         System.out.println();
         System.out.println("First : " + attacker);
@@ -100,7 +105,7 @@ public class UI {
 
             System.out.println();
             System.out.println(" Fighting Round " + counter);
-            PokemonArena.fight(userPokemon, pcPokemon, selectedUserAttack, selectedPcAttack, counter);
+            pokemonArena.fight(userPokemon, pcPokemon, selectedUserAttack, selectedPcAttack, counter);
 
 
             // Loop Benutzer wählt nächste Attacke

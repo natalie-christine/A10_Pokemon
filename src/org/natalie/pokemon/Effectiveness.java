@@ -1,3 +1,5 @@
+package org.natalie.pokemon;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -5,10 +7,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Effectiveness {
-    private static final String FILE_PATH = "C:\\Users\\JodaBook\\Documents\\Java\\A10_Pokemon\\src\\2023-03-16-Effectiveness.csv";
-    private static final Map<String, Map<String, Double>> effectivenessMap;
 
-    static {
+    private static final String FILE_PATH = "src/2023-03-16-Effectiveness.csv";
+
+    private final Map<String, Map<String, Double>> effectivenessMap;
+
+    public Effectiveness() {
         effectivenessMap = new HashMap<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
             String line;
@@ -27,11 +31,12 @@ public class Effectiveness {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            e.getMessage();
         }
     }
 
-    public static double getEffectiveness(String attackerType, String defenderType) {
+
+    public double getEffectiveness(String attackerType, String defenderType) {
         Map<String, Double> defenderEffectiveness = effectivenessMap.get(attackerType);
         if (defenderEffectiveness != null) {
             Double effectiveness = defenderEffectiveness.get(defenderType);

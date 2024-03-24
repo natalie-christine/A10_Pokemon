@@ -1,3 +1,5 @@
+package org.natalie.pokemon;
+
 public class Attack {
 
 

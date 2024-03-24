@@ -1,3 +1,7 @@
+package org.natalie.pokemon;
+
+import org.natalie.pokemon.Attack;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;

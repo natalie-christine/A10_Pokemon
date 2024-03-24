@@ -1,3 +1,5 @@
+package org.natalie.pokemon;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -5,24 +7,36 @@ import java.util.*;
 
 public class PokemonCenter {
 
-    static HashMap<String, Pokemon> pokemonNameList = new HashMap<>();
-    static HashMap<Integer, Pokemon> pokemonIndexList = new HashMap<>();
+    private final HashMap<String, Pokemon> pokemonNameList = new HashMap<>();
+    private final HashMap<Integer, Pokemon> pokemonIndexList = new HashMap<>();
 
-    static HashMap<String, Attack> attackList = new HashMap<>();
+    private final HashMap<String, Attack> attackList = new HashMap<>();
+
+    public PokemonCenter() {
+        try {
+            readPokemon();
+            readAttacks();
+            for (Pokemon pokemon : getPokemons() ) {
+                pokemon.setAttacks(getAttacksByType(pokemon.getType1(), pokemon.getType2()));
+            }
+        } catch (IOException e) {
+            System.err.println("Fehler beim Lesen der Dateien: " + e.getMessage());
+        }
+    }
 
 
-    public static void addPokemon(Pokemon pokemon) {
+    private void addPokemon(Pokemon pokemon) {
         pokemonNameList.put(pokemon.getName(), pokemon);
         pokemonIndexList.put(pokemon.getIndex(), pokemon);
     }
 
-    public static void addAttack(Attack attack) {
+    private void addAttack(Attack attack) {
         attackList.put(attack.getName(), attack);
     }
 
-    public static void readPokemon() throws IOException {
+    public void readPokemon() throws IOException {
         BufferedReader reader = new BufferedReader(
-                new FileReader("C:\\Users\\JodaBook\\Documents\\Java\\A10_Pokemon\\src\\2023-03-13-Pokemon.csv"));
+                new FileReader("C:\\Users\\JodaBook\\Documents\\Java\\A10_Pokemon\\src\\org\\natalie\\pokemon\\2023-03-13-Pokemon.csv"));
         String line;
 
         reader.readLine(); // Skip the header line
@@ -45,9 +59,9 @@ public class PokemonCenter {
         reader.close();
     }
 
-    public static void readAttacks() throws IOException {
+    public void readAttacks() throws IOException {
         BufferedReader reader = new BufferedReader(
-                new FileReader("C:\\Users\\JodaBook\\Documents\\Java\\A10_Pokemon\\src\\2023-04-03-Attacks.csv")
+                new FileReader("C:\\Users\\JodaBook\\Documents\\Java\\A10_Pokemon\\src\\org\\natalie\\pokemon\\2023-04-03-Attacks.csv")
         );
         reader.readLine(); // Skip header
         String currentLine = reader.readLine();
@@ -67,7 +81,7 @@ public class PokemonCenter {
         reader.close();
     }
 
-    public static void listPokemon() {
+    public void listPokemon() {
         for (int i = 1; i <= pokemonIndexList.size(); i++) {
             Pokemon pokemon = pokemonIndexList.get(i);
             System.out.println(pokemon);
